@@ -58,6 +58,7 @@ docs/                ← short, plain-English reference guides:
   04-model-and-cost-matrix.md  ← which Claude model for which job + spend caps
   05-going-cloud.md            ← get it off your laptop (schedules & cloud agents)
   06-when-the-connector-doesnt-exist.md ← no connector? browser path, thin wrapper, or a boundary
+  07-checking-it-stays-right.md ← is it still right after a change or a model swap?
 ```
 
 ---
