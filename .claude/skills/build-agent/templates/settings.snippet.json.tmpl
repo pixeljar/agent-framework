@@ -1,0 +1,13 @@
+{
+  "_comment_for_claude_only": "NOT a file to copy verbatim. During /build-agent, MERGE the deny rules the user's 'never do' answers imply into the permissions.deny array of .claude/settings.json. Only add DENY rules here — they are stable across versions. Do NOT hand-write MCP allow/ask rules (the token format is version-sensitive); rely on default-ask for anything unlisted, and set per-connector gating through the live /permissions UI instead. Delete this _comment key.",
+
+  "permissions": {
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(./secrets/**)",
+      "Bash(rm:*)",
+      "Bash(git push:*)"
+    ]
+  }
+}

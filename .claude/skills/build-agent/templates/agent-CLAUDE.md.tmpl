@@ -1,0 +1,54 @@
+# {{AGENT_NAME}}
+
+> {{ONE_LINE_MISSION}}
+
+<!--
+  Template for the GENERATED agent's CLAUDE.md. During /build-agent, replace every {{...}}
+  placeholder from the user's interview answers, delete the guidance comments, and write this
+  over the starter CLAUDE.md at the repo root. Every section below maps to an interview question.
+-->
+
+## What this agent does            <!-- Q1 / Q2 -->
+
+{{PLAIN_ENGLISH_JOB}}
+
+## How it works                    <!-- Q2: the step-by-step playbook, or "see the <job> skill" -->
+
+{{STEP_BY_STEP}}
+
+## Connectors it uses              <!-- Q3 / Q4 -->
+
+| App | Read or write? | Approval-gated? |
+|-----|----------------|-----------------|
+| {{APP}} | {{read/write}} | {{yes for any write/send}} |
+
+## Guardrails (always on)          <!-- Q5 / Q6 / Q8 — keep these; they travel with the agent -->
+
+- **Draft, never send.** Do not send, post, change, or delete anything without my explicit
+  "approve." Show me the full draft and stop.
+- **Least privilege.** Only the connectors listed above. Read unless a write is named.
+- **Keep PII/secrets out of context** (no SSNs, full account numbers, health data; never read
+  `.env` or `secrets/`).
+- **Financial access: {{ON/OFF}}.**
+  <!-- If OFF: "No financial systems." If ON: "Trust but verify — the read-only reviewer subagent
+       checks every number before I approve." -->
+
+## What it must NEVER do           <!-- Q7 -->
+
+- {{HARD_NO}}
+
+## Output                          <!-- Q5 -->
+
+{{WHAT_IT_HANDS_BACK}} — delivered to {{TO_WHOM}} as a {{draft/file/summary/shortlist}}.
+
+## Model & cost                    <!-- Q9 — confirm current ID/price with /claude-api -->
+
+Uses the **{{TIER}}** tier ({{MODEL_ID}}) because {{WHY}}. Rough spend expectation: {{NOTE}}.
+
+## Running it                      <!-- Q10 -->
+
+{{ON_REQUEST_NOW}}. To run it on a schedule or when something happens, see `docs/05-going-cloud.md`.
+
+## Human reviewer                  <!-- Q11 -->
+
+{{PERSON}} reviews the output before it counts.
