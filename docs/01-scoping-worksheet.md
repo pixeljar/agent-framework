@@ -32,25 +32,31 @@ Which of those does it also need to change, send to, or post to?
 The finished output is: `a draft email / a file or sheet / a summary / a shortlist / _______`
 …delivered to: `__________`
 
-**6. Act on its own, or ask first?**
+**6. What makes a result good — or wrong?**
+A good result looks like: `__________________________________________`
+A result is wrong if: `__________________________________________`
+(For a judgment job — red flags, reconciliation, candidate scoring — be specific; vague here means
+vague output. These become the "known-good" examples the check-it skill uses — see doc 07.)
+
+**7. Act on its own, or ask first?**
 Default and recommended: **ask first.** Circle one: `ask first`  /  `act on its own (later)`
 
-**7. What it must NEVER do.**
+**8. What it must NEVER do.**
 `touch money / see SSNs or PII / delete anything / post publicly / contact clients directly / _______`
 
-**8. Does it need financial access?**
+**9. Does it need financial access?**
 `No` (default)  /  `Yes — it must reach QuickBooks / Dynamics finance / bank data`
 (If yes, a read-only reviewer will double-check every number — see doc 03.)
 
-**9. Speed & cost, or deepest judgment?**
+**10. Speed & cost, or deepest judgment?**
 For this job I care more about: `speed + low cost`  /  `the best possible judgment`  /  `a balance`
 (This picks the Claude model — see doc 04.)
 
-**10. When should it run?**
+**11. When should it run?**
 `only when I ask`  /  `on a schedule (e.g. every morning)`  /  `when something happens`
 (Schedules & cloud → doc 05.)
 
-**11. Who signs off?**
+**12. Who signs off?**
 The person who reviews the output before it counts: `__________`
 
 ---

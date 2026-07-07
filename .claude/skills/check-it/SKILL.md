@@ -31,7 +31,9 @@ Most agents have some of both. Mark each example so you know how to score it.
 
 ## Step 1 — build the golden set (first time only)
 
-Ask the user for **2–3 real cases where they already know the right answer.** For each, capture:
+Start from the agent's own **`## What "good" looks like`** section (set during `/build-agent`,
+question 6) — that rubric is exactly what a golden example checks against. Then ask the user for
+**2–3 real cases where they already know the right answer.** For each, capture:
 
 - **The situation / input** — the data or request the agent would work from.
 - **What a good result looks like** — for a concrete case, the exact expected value(s); for a

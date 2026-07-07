@@ -18,7 +18,7 @@ and brief. Choose sensible defaults and explain them in one line. Never lecture.
 1. **Read `interview.md`** (next to this file). It has the exact ordered questions and the
    answer → file mapping. Follow it — don't improvise a different set of questions.
 2. Ask questions **one or two at a time**, offering multiple-choice options wherever you can so
-   the user can just pick. Don't dump all 11 questions at once.
+   the user can just pick. Don't dump all 12 questions at once.
 3. Keep a running plain-English summary in your head. After the last answer, **read the summary
    back** ("Here's what I'll build…") and ask *"Did I get this right?"* **Only write files after
    they confirm.**
@@ -39,7 +39,7 @@ and brief. Choose sensible defaults and explain them in one line. Never lecture.
   participant asked for it.
 - **Least privilege.** Only add the connectors the user names. Read-only unless they say the
   agent must write/send.
-- **No financial access** unless interview question 8 is an explicit "yes." If yes, also turn on
+- **No financial access** unless interview question 9 is an explicit "yes." If yes, also turn on
   the `reviewer` subagent (`.claude/agents/reviewer.md`) and note "trust but verify" in the
   agent's `CLAUDE.md`.
 - **No PII/secrets in context.** Keep the existing `deny` rules for `.env` / `secrets/`.
