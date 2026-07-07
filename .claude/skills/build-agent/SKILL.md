@@ -57,7 +57,8 @@ and brief. Choose sensible defaults and explain them in one line. Never lecture.
 - **Verify each connector exists** with `/mcp` before telling the user it's wired up. If a named
   app has no available connector (e.g. Monday.com, Crelate), say so plainly and offer the
   fallbacks in `docs/02-connectors-catalog.md` (a browser-driven path, or a thin API wrapper) —
-  don't invent a server that isn't there.
+  the step-by-step for each path is in `docs/06-when-the-connector-doesnt-exist.md`. Don't invent
+  a server that isn't there.
 - **Telephony is not a Claude tool.** If the job involves phone calls (Twilio/Retell/VAPI), the
   *dialing* happens outside the agent. The agent can still do the lead scoring / qualification /
   analysis around it. Say this clearly rather than promising call-making.

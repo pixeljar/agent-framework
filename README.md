@@ -57,6 +57,7 @@ docs/                ← short, plain-English reference guides:
   03-guardrails.md             ← the four safety defaults, explained
   04-model-and-cost-matrix.md  ← which Claude model for which job + spend caps
   05-going-cloud.md            ← get it off your laptop (schedules & cloud agents)
+  06-when-the-connector-doesnt-exist.md ← no connector? browser path, thin wrapper, or a boundary
 ```
 
 ---

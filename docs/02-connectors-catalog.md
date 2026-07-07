@@ -76,7 +76,7 @@ What to know:
 
 Typical shape: Claude reads candidate profiles in LinkedIn Recruiter, scores them against your
 criteria, and drops a shortlist (with profile links) into a Google Sheet for a recruiter to
-review — never messaging anyone without approval.
+review — never messaging anyone without approval. Step-by-step: see `docs/06`.
 
 ---
 
@@ -85,4 +85,4 @@ review — never messaging anyone without approval.
 If your job involves **outbound calls** (Twilio, Retell, VAPI, etc.), the *dialing* happens in a
 separate phone service — it is **not** a Claude tool. Your agent can still do everything around
 it: score and qualify leads, decide who's worth a call, draft the talking points, and analyze
-results. Just don't expect the agent itself to place the call.
+results. Just don't expect the agent itself to place the call. Step-by-step: see `docs/06`.
