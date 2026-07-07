@@ -22,7 +22,7 @@
 |-----|----------------|-----------------|
 | {{APP}} | {{read/write}} | {{yes for any write/send}} |
 
-## Guardrails (always on)          <!-- Q5 / Q6 / Q8 — keep these; they travel with the agent -->
+## Guardrails (always on)          <!-- Q5 / Q7 / Q9 — keep these; they travel with the agent -->
 
 - **Draft, never send.** Do not send, post, change, or delete anything without my explicit
   "approve." Show me the full draft and stop.
@@ -33,7 +33,7 @@
   <!-- If OFF: "No financial systems." If ON: "Trust but verify — the read-only reviewer subagent
        checks every number before I approve." -->
 
-## What it must NEVER do           <!-- Q7 -->
+## What it must NEVER do           <!-- Q8 -->
 
 - {{HARD_NO}}
 
@@ -41,14 +41,18 @@
 
 {{WHAT_IT_HANDS_BACK}} — delivered to {{TO_WHOM}} as a {{draft/file/summary/shortlist}}.
 
-## Model & cost                    <!-- Q9 — confirm current ID/price with /claude-api -->
+## What "good" looks like          <!-- Q6 — the rubric; feeds the golden set in the check-it skill -->
+
+{{WHAT_MAKES_A_RESULT_GOOD}} — and a result is **wrong** if {{WHAT_MAKES_IT_WRONG}}.
+
+## Model & cost                    <!-- Q10 — confirm current ID/price with /claude-api -->
 
 Uses the **{{TIER}}** tier ({{MODEL_ID}}) because {{WHY}}. Rough spend expectation: {{NOTE}}.
 
-## Running it                      <!-- Q10 -->
+## Running it                      <!-- Q11 -->
 
 {{ON_REQUEST_NOW}}. To run it on a schedule or when something happens, see `docs/05-going-cloud.md`.
 
-## Human reviewer                  <!-- Q11 -->
+## Human reviewer                  <!-- Q12 -->
 
 {{PERSON}} reviews the output before it counts.
