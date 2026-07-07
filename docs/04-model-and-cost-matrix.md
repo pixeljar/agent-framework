@@ -21,7 +21,8 @@ single biggest lever on your bill.
 | The hardest, longest, most autonomous work | **Fable** | Anthropic's most capable model. Premium price — reach for it only when Opus genuinely isn't enough. |
 
 A simple rule: **start on Sonnet.** Drop high-volume steps down to Haiku to save money; step the
-hardest reasoning up to Opus when quality matters. Change the model any time with `/model`.
+hardest reasoning up to Opus when quality matters. Change the model any time with `/model` — and
+after you change it, confirm the agent still holds up: run `/check-it` (doc 07).
 
 ---
 

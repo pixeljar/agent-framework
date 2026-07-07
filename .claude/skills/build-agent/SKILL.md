@@ -72,3 +72,5 @@ Tell the user, in plain English:
 3. That they can put it **on a schedule** later — point them to `docs/05-going-cloud.md`.
 4. For model/cost questions, point them to `docs/04-model-and-cost-matrix.md` (and run
    `/claude-api` for current model IDs and prices — don't quote prices from memory).
+5. To keep it correct over time — after any change or a model swap — point them to `/check-it`
+   and `docs/07-checking-it-stays-right.md`.
