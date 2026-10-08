@@ -74,7 +74,7 @@ CLAUDE.md            ← the agent's always-on rules and guardrails
 env.example          ← where your app passwords/keys go (copy to .env — never committed)
 .mcp.json            ← the list of apps your agent connects to (filled in during /build-agent)
 .claude/             ← the machine-readable config Claude Code reads automatically
-  settings.json      ← what the agent is allowed / must ask about / must never do
+  settings.json      ← what the agent must never do (everything else asks you first)
   skills/            ← reusable "playbooks" (incl. the /build-agent guide itself)
   agents/            ← a read-only "second set of eyes" reviewer
 docs/                ← short, plain-English reference guides:

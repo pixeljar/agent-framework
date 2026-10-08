@@ -15,6 +15,11 @@ give an agent more independence, guardrails matter **more**, not less.
 anything that *leaves your hands* (an email sent, a record changed, a message posted, a file
 deleted) stops and waits for you to say **"approve."**
 
+**How it's enforced.** Two layers. The agent's `CLAUDE.md` tells it to draft and stop. Behind
+that, Claude Code asks your permission before it runs a command, edits a file, or uses an app's
+write action, because `.claude/settings.json` deliberately doesn't pre-approve any of those.
+`settings.json` only lists the things the agent must **never** do (like reading `.env`).
+
 **Why.** This is the difference between a helpful assistant and an unsupervised one. You get the
 speed of automation and the safety of a human check at the exact moment it matters. Every
 participant in the workshop asked for this, in their own words — "I wanna be in the loop,"
