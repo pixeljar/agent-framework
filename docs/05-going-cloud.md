@@ -20,9 +20,16 @@ still runs.* Set one up with **`/schedule`** in Claude Code, in plain English:
 - "Every weekday at 7am, compile my 'what am I waiting on' email and draft it for me."
 - "Every Monday, pull last week's numbers and draft the summary."
 
-The same guardrails still apply — a scheduled agent that drafts an email still **waits for your
-approval** before sending (you'll get the draft to approve). As the workshop puts it: when work
+**One important difference: nobody is there to say "approve."** So a scheduled agent doesn't
+send anything at all. It **saves its draft somewhere you'll look** — your Gmail drafts, a
+Google Doc, a sheet — and you review and send it yourself. `/build-agent` sets this up: it asks
+where drafts should go, and it blocks the agent's send, post, and delete actions in
+`.claude/settings.json` so it *can't* send, even by mistake. As the workshop puts it: when work
 triggers *itself*, permissions matter **more**, not less.
+
+> Adding a schedule to an agent you built for "only when I ask"? Ask Claude to "set this agent
+> up to run unattended": it will pick a draft destination with you and block the send actions
+> before you type `/schedule`.
 
 ### Always-on: a Managed Agent
 
@@ -36,9 +43,10 @@ refactor.
 1. **Cloud runs are billed separately.** Running in the cloud uses tokens that may be billed
    apart from your normal plan. **Set a daily/monthly spend cap** so a scheduled job can't run
    up a surprise. (See doc 04.)
-2. **Guardrails matter more, not less, unattended.** Keep the approval gate on for anything
-   outward. A good pattern: the agent does the work overnight and leaves you a **draft to
-   approve in the morning**, rather than sending on its own.
+2. **Guardrails matter more, not less, unattended.** The agent does the work overnight and
+   leaves you a **draft to review in the morning**; it has no way to send on its own. Content
+   it reads unattended (emails, messages) can try to trick it, which is one more reason the
+   send actions are blocked rather than merely discouraged.
 
 **You do not need anything below this line to run locally or on a schedule.** Read on only if
 you want to deploy the *same* agent to your own cloud (AWS, Cloudflare) unchanged.
