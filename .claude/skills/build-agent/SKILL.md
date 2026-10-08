@@ -23,7 +23,9 @@ and brief. Choose sensible defaults and explain them in one line. Never lecture.
      Do you want to **update** it, **replace** it with a new one, or build the new one in a
      **separate copy** of this folder?"* Update → load its current answers, walk only the
      questions they want to change, and edit `AGENT.md` in place. Replace → say plainly that
-     the old agent's instructions, connectors, and rules will be removed, and get a yes first.
+     the old agent will be set aside (archived, not deleted) and its connectors and rules
+     removed, get a yes, then run the interview; follow "Replacing an existing agent" below
+     before you scaffold.
      Separate copy → tell them to copy the folder, open Claude Code in the copy, and run
      `/build-agent` there. One agent per folder keeps each agent's apps and rules separate.
 1. **Read `interview.md`** (next to this file). It has the exact ordered questions and the
@@ -51,9 +53,9 @@ and brief. Choose sensible defaults and explain them in one line. Never lecture.
      `_note`, and `<!--` guidance comments, and remove them. (The connector table, the guardrails,
      and the never list must all be filled in, not placeholders.)
    - **The framework is untouched.** `git status` shows changes only to agent-owned files
-     (`AGENT.md`, `.claude/skills/<job>/`) and the shared config (`.mcp.json`,
-     `.claude/settings.json`, `env.example`). If any framework-owned file changed, undo that
-     change before going on.
+     (`AGENT.md`, `.claude/skills/<job>/`, `archive/` after a replace) and the shared config
+     (`.mcp.json`, `.claude/settings.json`, `env.example`). If any framework-owned file
+     changed, undo that change before going on.
    - **The pieces agree.** Every app in the `## Connectors it uses` table is in `.mcp.json`, or is
      marked as the browser path / thin wrapper. Every `${VAR}` in `.mcp.json` is listed in
      `env.example`. No real token appears in any committed file.
@@ -64,6 +66,47 @@ and brief. Choose sensible defaults and explain them in one line. Never lecture.
 6. Confirm scope out loud, then **ask the user to type `/mcp` and `/permissions`** so they can
    see exactly what their agent can reach. (These are built-in commands only the user can run.)
    Remind them no real passwords were written to any committed file.
+
+## Replacing an existing agent
+
+Do this **after** the new agent's read-back gets a "yes" and **before** step 4, so the folder is
+never left half-way if the user stops during the interview. Nothing is deleted: the old agent is
+moved into `archive/`, so a replace can always be undone.
+
+1. **Work out what the old agent owns.** From the old `AGENT.md`, collect:
+   - **Connectors:** the apps in its `## Connectors it uses` table → their entries in
+     `.mcp.json`. Keep any the new agent also uses.
+   - **Rules:** every `deny` rule in `.claude/settings.json` that isn't in the framework's
+     baseline (the `deny` list in `templates/settings.snippet.json.tmpl`). Keep any the new
+     agent also needs.
+   - **Token names:** the `${VAR}` names used only by connectors being removed → their lines in
+     `env.example`.
+   - **Its own files:** `AGENT.md`, any playbook skill it points to under `.claude/skills/<job>/`
+     (never one of the framework's skills), and `evals/` (its golden set fits the old job).
+   - **Things outside this folder:** a schedule (if its `## Running it` says so) and real tokens
+     in `.env`. You can't change these; the user does.
+2. **Show the cleanup as a draft** and get an explicit "approve" (the `draft-and-approve`
+   handshake), in plain English:
+   > "To replace **<old name>** with **<new name>**, I'll move its instructions, its `<job>`
+   > skill, and its saved examples into `archive/<old-name>-<date>/`, and take out its
+   > connectors (**<apps>**), its blocked actions (**<list>**), and its token names
+   > (**<names>**). I'll keep **<anything shared>** because the new agent uses it too. You'll
+   > need to do two things yourself: <delete the schedule by typing `/schedule`> and <remove the
+   > old tokens from `.env`>. Reply **approve** to go ahead."
+3. **Archive, don't delete.** Create `archive/<old-name>-<YYYY-MM-DD>/` and move the old files
+   into it with `git mv` (or `mv` if a file isn't tracked): `AGENT.md`, the skill folder, and
+   `evals/`. Never use `rm`. Files under `archive/` aren't loaded, so they can't affect the new
+   agent.
+4. **Remove the config entries** from `.mcp.json`, `.claude/settings.json`, and `env.example`.
+   Before removing them, write them all into `archive/<old-name>-<date>/removed-config.md`
+   (connector entries as JSON, deny rules, token names; never real token values) so the old
+   agent can be rebuilt exactly.
+5. **Check the result:** both JSON files parse, the framework's baseline deny rules are all
+   still there, and `git status` shows only the archive, agent-owned files, and shared config
+   changed. Then scaffold the new agent (step 4) as usual.
+
+To bring the old agent back later: move its files out of the archive and re-add the entries
+from `removed-config.md` (its own folder copy, or after archiving the current agent the same way).
 
 ## Non-negotiable defaults (bake these in unless the user explicitly overrides)
 
