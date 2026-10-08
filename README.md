@@ -76,7 +76,8 @@ env.example          ← where your app passwords/keys go (copy to .env — neve
 .claude/             ← the machine-readable config Claude Code reads automatically
   settings.json      ← what the agent must never do (everything else asks you first)
   skills/            ← reusable "playbooks" (incl. the /build-agent guide itself)
-  agents/            ← a read-only "second set of eyes" reviewer
+  agents/            ← read-only helpers: a "second set of eyes" reviewer, and the
+                       eval runner /check-it uses
 docs/                ← short, plain-English reference guides:
   01-scoping-worksheet.md      ← think through your agent before you build
   02-connectors-catalog.md     ← how to connect Google / Microsoft / a browser
