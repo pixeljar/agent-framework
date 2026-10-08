@@ -31,7 +31,7 @@ Most agents have some of both. Mark each example so you know how to score it.
 
 ## Step 1 — build the golden set (first time only)
 
-Start from the agent's own **`## What "good" looks like`** section (set during `/build-agent`,
+Start from the **`## What "good" looks like`** section in `AGENT.md` (set during `/build-agent`,
 question 5) — that rubric is exactly what a golden example checks against. Then ask the user for
 **2–3 real cases where they already know the right answer.** For each, capture:
 
@@ -97,7 +97,7 @@ you move an agent onto one:
    each subagent — no need for the user to switch their session). Save that report too.
 3. Put the two reports side by side, case by case.
 4. Recommend keeping the new model **only if it holds up**, then stop — the user decides. If they
-   say yes, update `## Model & cost` in the agent's `CLAUDE.md`, and tell them to type `/model`
+   say yes, update `## Model & cost` in `AGENT.md`, and tell them to type `/model`
    if they also want their own session on it. See `docs/04-model-and-cost-matrix.md`.
 
 ## When it's wrong, save that as a test

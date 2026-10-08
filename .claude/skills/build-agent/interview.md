@@ -8,7 +8,7 @@ The right-hand column is **for you** (Claude), not the user — it's where each 
 
 | # | Ask the user (plain English) | What you do with the answer |
 |---|---|---|
-| 1 | "In one sentence — what repetitive job do you want to hand off?" | Name the agent + write its mission → `CLAUDE.md` heading + `## What this agent does` |
+| 1 | "In one sentence — what repetitive job do you want to hand off?" | Name the agent + write its mission → `AGENT.md` heading + `## What this agent does` |
 | 2 | "Walk me through how you do it today, step by step." | Capture the playbook → `## How it works`. If it's a clean repeatable procedure, offer to save it as its own reusable skill under `.claude/skills/<job>/SKILL.md`. |
 | 3 | "Which apps does it use — and in each one, should it just **look**, or also **send or change** things?" *(menu: Google Sheets / Gmail / Google Drive · Slack · Asana · Monday.com · QuickBooks Online · Microsoft Outlook / Excel / SharePoint / Teams · Microsoft Dynamics · LinkedIn Recruiter · Crelate · other)* | Pick connectors → `.mcp.json` entries (from `templates/mcp.snippet.json.tmpl`) + the `## Connectors it uses` table, marking each read or write. Write/send → **approval-gated** (`draft-and-approve`). If an app has no API / blocks automation (LinkedIn Recruiter is the classic case), choose the **browser path** — see `docs/02-connectors-catalog.md`, step-by-step in `docs/06-when-the-connector-doesnt-exist.md`. **If they name a financial app** (QuickBooks, bank feeds, payroll, Dynamics finance), ask the financial follow-up below. |
 | 4 | "What should it hand back to you?" *(menu: a draft email · a file/sheet · a summary · a shortlist · something else)* | Set the output → `## Output`. Default to **draft, not send.** |

@@ -35,7 +35,7 @@ triggers *itself*, permissions matter **more**, not less.
 
 For something that should run continuously or handle events, Anthropic's **Managed Agents** host
 your agent in the cloud full-time. It uses the *same* pieces you already built — your
-`CLAUDE.md` becomes its instructions, your `skills/` and `.mcp.json` come along unchanged. No
+`CLAUDE.md` (with the guardrails and your `AGENT.md`) becomes its instructions, your `skills/` and `.mcp.json` come along unchanged. No
 refactor.
 
 ### Two things to know before you schedule anything
@@ -62,7 +62,7 @@ the four portable pieces you already built map one-to-one onto a host-neutral st
 
 | Portable piece (host-neutral "core") | What you already have |
 |--------------------------------------|-----------------------|
-| System prompt + subagents | `CLAUDE.md` + `.claude/agents/*` |
+| System prompt + subagents | `CLAUDE.md` (+ `AGENT.md`, `.claude/guardrails.md`) + `.claude/agents/*` |
 | Skills (reusable playbooks) | `.claude/skills/*` |
 | Connectors (MCP server list, no secrets) | `.mcp.json` |
 | The tool-use loop | provided by every host — nothing to write |

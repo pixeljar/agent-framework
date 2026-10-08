@@ -3,9 +3,11 @@
 > {{ONE_LINE_MISSION}}
 
 <!--
-  Template for the GENERATED agent's CLAUDE.md. During /build-agent, replace every {{...}}
-  placeholder from the user's interview answers, delete the guidance comments, and write this
-  over the starter CLAUDE.md at the repo root. Every section below maps to an interview question.
+  Template for the GENERATED agent's AGENT.md. During /build-agent, replace every {{...}}
+  placeholder from the user's interview answers, delete the guidance comments, and write the
+  result to AGENT.md at the repo root (replacing the "not built yet" placeholder). CLAUDE.md
+  already pulls in AGENT.md and the shared guardrails — never touch CLAUDE.md. Every section
+  below maps to an interview question.
 -->
 
 ## What this agent does            <!-- Q1 / Q2 -->
@@ -22,14 +24,12 @@
 |-----|----------------|-----------------|
 | {{APP}} | {{read/write}} | {{yes for any write/send}} |
 
-## Guardrails (always on)          <!-- Q3 financial follow-up / Q7 -->
+## Guardrails for this agent        <!-- Q3 financial follow-up / Q7 -->
 
-<!-- Keep the @-line below exactly as is: it pulls in the shared, always-on guardrails. Never copy
-     their text in here or edit .claude/guardrails.md during a build. Add only this agent's
-     specifics in the bullets after it. -->
-@.claude/guardrails.md
+<!-- The five always-on guardrails come from .claude/guardrails.md through CLAUDE.md; never copy
+     their text in here. Add only this agent's specifics. -->
 
-For this agent specifically:
+The shared, always-on guardrails apply in full. In addition, for this agent:
 
 - **Connectors:** only the ones in the table above. Read unless a write is named.
 - **When I'm not here (scheduled runs), save drafts — never send.** Leave the draft where I'll
