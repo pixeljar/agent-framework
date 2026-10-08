@@ -1,5 +1,5 @@
 {
-  "_comment_for_claude_only": "NOT a file to copy verbatim. During /build-agent, MERGE the deny rules the user's 'never do' answers imply into the permissions.deny array of .claude/settings.json. Only add DENY rules here — they are stable across versions. Do NOT hand-write MCP allow/ask rules (the token format is version-sensitive); rely on default-ask for anything unlisted, and ask the user to set per-connector gating by typing /permissions (only the user can run it). Delete this _comment key.",
+  "_comment_for_claude_only": "NOT a file to copy verbatim. During /build-agent, MERGE the deny rules the user's 'never do' answers imply into the permissions.deny array of .claude/settings.json. Only add DENY rules here — they are stable across versions. For a scheduled/triggered agent, also deny every connector action that sends, posts, replies, forwards, deletes, or trashes — copy each exact name (mcp__<server>__<action>) from your live tool list, never guess (see 'Scheduled runs' in SKILL.md). Do NOT hand-write MCP allow/ask rules (the token format is version-sensitive); rely on default-ask for anything unlisted, and ask the user to set per-connector gating by typing /permissions (only the user can run it). Delete this _comment key.",
 
   "permissions": {
     "deny": [
