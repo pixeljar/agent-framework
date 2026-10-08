@@ -70,10 +70,11 @@ A few use a token or API key instead. For those:
 
 ```
 README.md            ← you are here
-CLAUDE.md            ← the agent's always-on rules and guardrails
+CLAUDE.md            ← the agent's instructions (pulls in the guardrails below)
 env.example          ← where your app passwords/keys go (copy to .env — never committed)
 .mcp.json            ← the list of apps your agent connects to (filled in during /build-agent)
 .claude/             ← the machine-readable config Claude Code reads automatically
+  guardrails.md      ← the five always-on safety rules, in one place
   settings.json      ← what the agent must never do (everything else asks you first)
   skills/            ← reusable "playbooks" (incl. the /build-agent guide itself)
   agents/            ← read-only helpers: a "second set of eyes" reviewer, and the
