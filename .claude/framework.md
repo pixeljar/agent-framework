@@ -14,13 +14,14 @@ the human lives in `docs/`.
 The framework and the agent live side by side in this folder, in separate files:
 
 - **Framework-owned — never change these while building or running an agent:** `CLAUDE.md`,
-  `.claude/framework.md`, `.claude/guardrails.md`, the `build-agent`, `check-it`, and
-  `draft-and-approve` skills, the `reviewer` and `eval-runner` subagents, `README.md`, and
-  `docs/`. They change only when the user explicitly asks to change the framework itself.
+  `.claude/framework.md`, `.claude/guardrails.md`, the `build-agent`, `check-it`,
+  `draft-and-approve`, and `package-agent` skills, the `reviewer` and `eval-runner`
+  subagents, `README.md`, and `docs/`. They change only when the user explicitly asks to
+  change the framework itself.
 - **Agent-owned — written by `/build-agent`:** `AGENT.md` (the agent's job and playbook), an
   optional `.claude/skills/<job>/` playbook skill, `evals/` (written by `/check-it`), and
   `archive/` (earlier agents set aside by a replace — not loaded, kept so a replace can be
-  undone).
+  undone), and `dist/` (packages built by `/package-agent`; gitignored).
 - **Shared config — `/build-agent` adds entries** (and, when replacing an agent, removes only
   that agent's entries after recording them in `archive/`): `.mcp.json` (connectors),
   `.claude/settings.json` (deny rules), and `env.example` (token names).

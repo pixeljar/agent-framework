@@ -177,3 +177,5 @@ Tell the user, in plain English:
    `/claude-api` for current model IDs and prices — don't quote prices from memory).
 5. To keep it correct over time — after any change or a model swap — point them to `/check-it`
    and `docs/07-checking-it-stays-right.md`.
+6. To use it somewhere else (their team's Claude Code or Cowork, or the Claude app), point them
+   to `/package-agent` and `docs/08-packaging-your-agent.md`.
