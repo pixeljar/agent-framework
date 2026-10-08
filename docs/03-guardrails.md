@@ -1,8 +1,10 @@
 # 03 · Guardrails
 
-Five safety defaults ship turned **on**. You don't have to set them up — they're already in
-`CLAUDE.md` and `.claude/settings.json`. This page explains what each one does and *why*, in
-plain English, so you can decide when (and whether) to loosen it.
+Five safety defaults ship turned **on**. You don't have to set them up. They're written once, in
+`.claude/guardrails.md`, which every agent's `CLAUDE.md` pulls in, and backed up by
+`.claude/settings.json`. Because they live in their own file, rebuilding or rewording your
+agent's instructions can't accidentally drop one. This page explains what each one does and
+*why*, in plain English, so you can decide when (and whether) to loosen it.
 
 The whole idea, in the workshop's words: **You direct Claude. You stay in the loop.** As you
 give an agent more independence, guardrails matter **more**, not less.
@@ -15,7 +17,7 @@ give an agent more independence, guardrails matter **more**, not less.
 anything that *leaves your hands* (an email sent, a record changed, a message posted, a file
 deleted) stops and waits for you to say **"approve."**
 
-**How it's enforced.** Two layers. The agent's `CLAUDE.md` tells it to draft and stop. Behind
+**How it's enforced.** Two layers. The guardrails file tells the agent to draft and stop. Behind
 that, Claude Code asks your permission before it runs a command, edits a file, or uses an app's
 write action, because `.claude/settings.json` deliberately doesn't pre-approve any of those.
 `settings.json` only lists the things the agent must **never** do (like reading `.env`).

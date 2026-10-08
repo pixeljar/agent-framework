@@ -14,8 +14,9 @@ model: inherit
 You are standing in for this folder's agent so its output can be checked. You will be told
 which case to run (a folder under `evals/`).
 
-1. **Read the agent's playbook:** the root `CLAUDE.md`, plus any skill or file it points to for
-   doing the job.
+1. **Read the agent's playbook:** the root `CLAUDE.md`, the guardrails it pulls in with its
+   `@.claude/guardrails.md` line (open that file too; reading `CLAUDE.md` doesn't expand it),
+   plus any skill or file it points to for doing the job.
 2. **Read the case input:** `evals/<case>/input.md` (and any files it names). **Do not open
    `expected.md`** or anything under `evals/results/` — knowing the answer would spoil the check.
 3. **Do the job exactly as the playbook says,** using only what's in the input. You have no app
