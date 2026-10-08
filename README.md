@@ -24,7 +24,8 @@ A small, safe, reusable Claude agent that:
 ## 60-second quickstart
 
 1. **Copy this whole folder** into your own project folder, then open Claude Code **in that
-   copy**. (Copy first, *then* open — that's how Claude sees the built-in guide.)
+   copy**. (Copy first, *then* open — that's how Claude sees the built-in guide.) Use one copy
+   per agent; `/build-agent` will warn you if the folder already has one.
 2. In Claude Code, type:
 
    ```
@@ -32,7 +33,8 @@ A small, safe, reusable Claude agent that:
    ```
 
    …or just say: **"help me build my agent."**
-3. Answer the questions in plain English. Claude scaffolds your agent as you go.
+3. Answer the questions in plain English. Claude writes your agent's instructions to
+   `AGENT.md` and leaves the framework's own files as they are.
 4. Test it (Claude will show you how). Confirm it **drafts and waits for your approval**.
 5. When you're happy, ask Claude to help you **put it on a schedule** (see `docs/05-going-cloud.md`).
 
@@ -70,10 +72,13 @@ A few use a token or API key instead. For those:
 
 ```
 README.md            ← you are here
-CLAUDE.md            ← the agent's instructions (pulls in the guardrails below)
+AGENT.md             ← YOUR agent: its job, steps, apps, and what "good" looks like
+                       (written by /build-agent; open it any time to see what it's been told)
+CLAUDE.md            ← loads automatically; pulls in the framework, the guardrails, and AGENT.md
 env.example          ← where your app passwords/keys go (copy to .env — never committed)
 .mcp.json            ← the list of apps your agent connects to (filled in during /build-agent)
 .claude/             ← the machine-readable config Claude Code reads automatically
+  framework.md       ← how the framework works, and which files belong to it vs. your agent
   guardrails.md      ← the five always-on safety rules, in one place
   settings.json      ← what the agent must never do (everything else asks you first)
   skills/            ← reusable "playbooks" (incl. the /build-agent guide itself)
@@ -99,3 +104,12 @@ to say "approve." You can loosen that later, deliberately, once you trust it. Se
 `docs/03-guardrails.md`.
 
 Not sure what to build? Open `docs/01-scoping-worksheet.md` and fill in the blanks first.
+
+---
+
+## Getting framework updates
+
+Your agent lives in `AGENT.md` (plus any skill and examples it made). Everything else is the
+framework, and building an agent never changes it. So when the framework gets a fix, you can
+pull it into your copy without touching your agent. The only shared files are `.mcp.json` and
+`.claude/settings.json`, which the framework ships nearly empty.

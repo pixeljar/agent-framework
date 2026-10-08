@@ -1,7 +1,7 @@
 # 03 · Guardrails
 
 Five safety defaults ship turned **on**. You don't have to set them up. They're written once, in
-`.claude/guardrails.md`, which every agent's `CLAUDE.md` pulls in, and backed up by
+`.claude/guardrails.md`, which `CLAUDE.md` pulls in for every agent, and backed up by
 `.claude/settings.json`. Because they live in their own file, rebuilding or rewording your
 agent's instructions can't accidentally drop one. This page explains what each one does and
 *why*, in plain English, so you can decide when (and whether) to loosen it.

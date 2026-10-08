@@ -1,8 +1,8 @@
 # Guardrails — always on
 
 These are the safety rules for every agent built from this framework. They live in this one
-file, and each agent's `CLAUDE.md` pulls them in with an `@.claude/guardrails.md` line, so they
-can't be lost when an agent's instructions are rewritten. Change them only on the user's
+file, and `CLAUDE.md` pulls them in with an `@.claude/guardrails.md` line. Agents are written to
+`AGENT.md`, so building or rewriting an agent can't lose them. Change them only on the user's
 explicit say-so. Plain-English explanations: `docs/03-guardrails.md`.
 
 1. **Draft, never send.** Do not send an email, post a message, change or delete a record, push
@@ -33,7 +33,8 @@ explicit say-so. Plain-English explanations: `docs/03-guardrails.md`.
   to type `/mcp`. Don't invent a connector that isn't installed.
 - **You can't run built-in slash commands** like `/mcp`, `/permissions`, `/schedule`, or
   `/model`. Ask the user to type them.
-- **Never write real passwords, tokens, or API keys** into `.mcp.json`, `CLAUDE.md`, or any
-  file that gets committed. Real secrets go in `.env` (gitignored), referenced as `${VAR_NAME}`
-  in `.mcp.json` and listed by name in `env.example`. Claude Code doesn't load `.env` by itself
-  — point the user to "Using a connector that needs a token" in `README.md`.
+- **Never write real passwords, tokens, or API keys** into `.mcp.json`, `AGENT.md`,
+  `CLAUDE.md`, or any file that gets committed. Real secrets go in `.env` (gitignored),
+  referenced as `${VAR_NAME}` in `.mcp.json` and listed by name in `env.example`. Claude Code
+  doesn't load `.env` by itself — point the user to "Using a connector that needs a token" in
+  `README.md`.
