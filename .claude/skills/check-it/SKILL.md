@@ -73,7 +73,7 @@ This is the highest-value moment to run it. Newer/cheaper/faster models appear r
 you move an agent onto one:
 
 1. Run the golden set on the **current** model — confirm it still passes (your baseline).
-2. Switch with `/model` (or change `/effort`).
+2. Ask the user to switch with `/model` (or change `/effort`) — only the user can run these.
 3. Run the golden set again on the **new** model.
 4. Compare the two reports. Keep the new model **only if it holds up.** See `docs/04-model-and-cost-matrix.md`.
 

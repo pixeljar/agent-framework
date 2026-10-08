@@ -40,12 +40,38 @@ That's it. Everything below is optional reading.
 
 ---
 
+## Using a connector that needs a token
+
+Most connectors (Google, Microsoft, Slack) sign in with a browser pop-up — nothing to set up.
+A few use a token or API key instead. For those:
+
+1. Copy `env.example` to a new file named `.env` and paste your real values there. `.env` is
+   never committed or shared.
+2. **Claude Code does not read `.env` on its own**, so load it into your terminal each time,
+   right before you start Claude Code:
+
+   **Mac / Linux:**
+   ```
+   set -a; source .env; set +a
+   claude
+   ```
+
+   **Windows (PowerShell):**
+   ```
+   Get-Content .env | ForEach-Object { if ($_ -match '^\s*([^#=]+?)\s*=(.*)$') { Set-Item "env:$($matches[1])" $matches[2] } }
+   claude
+   ```
+3. To confirm it worked, run `claude mcp list`. A connector that is missing its token shows a
+   warning about a missing variable.
+
+---
+
 ## What's in this folder
 
 ```
 README.md            ← you are here
 CLAUDE.md            ← the agent's always-on rules and guardrails
-.env.example         ← where your app passwords/keys go (copy to .env — never committed)
+env.example          ← where your app passwords/keys go (copy to .env — never committed)
 .mcp.json            ← the list of apps your agent connects to (filled in during /build-agent)
 .claude/             ← the machine-readable config Claude Code reads automatically
   settings.json      ← what the agent is allowed / must ask about / must never do

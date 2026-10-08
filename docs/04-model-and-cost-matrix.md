@@ -4,9 +4,9 @@ Claude comes in several models. They're all the same *kind* of thing — they di
 they reason, how fast they respond, and what they cost. Picking the right one per job is the
 single biggest lever on your bill.
 
-> **Prices change.** The numbers below are current as of the workshop, but before you quote
-> anyone a real cost, run **`/claude-api`** in Claude Code (or ask Claude "what's the current
-> price for X") to get live model IDs and pricing. Don't trust prices from memory.
+> **Models and prices change often**, so this page doesn't list exact model IDs or prices.
+> When you need them, ask Claude in Claude Code: *"what are the current Claude model IDs and
+> prices?"* — it checks with its built-in `/claude-api` reference. Don't trust prices from memory.
 
 ---
 
@@ -26,14 +26,11 @@ after you change it, confirm the agent still holds up: run `/check-it` (doc 07).
 
 ---
 
-## Current models (verify with `/claude-api`)
+## What you pay for
 
-| Tier | Model ID | Rough price (input / output, per 1M tokens) | Context window |
-|------|----------|---------------------------------------------|----------------|
-| Fable | `claude-fable-5` | ~$10 / ~$50 | 1M |
-| Opus  | `claude-opus-4-8` | ~$5 / ~$25 | 1M |
-| Sonnet | `claude-sonnet-5` | ~$3 / ~$15 (intro ~$2 / ~$10 through 2026-08-31) | 1M |
-| Haiku | `claude-haiku-4-5` | ~$1 / ~$5 | 200K |
+The tiers above go up in price from Haiku → Sonnet → Opus → Fable. For the exact model IDs and
+current prices, ask Claude (it checks `/claude-api`) rather than relying on a table that goes
+stale.
 
 "Tokens" are chunks of text — very roughly ¾ of a word each. You pay for what goes **in**
 (your prompt + the data it reads) and what comes **out** (its response). Reading a lot of data

@@ -27,9 +27,9 @@ and brief. Choose sensible defaults and explain them in one line. Never lecture.
    - `templates/mcp.snippet.json.tmpl` → merge chosen connectors into the repo-root `.mcp.json`.
    - `templates/settings.snippet.json.tmpl` → merge any extra deny rules into
      `.claude/settings.json`.
-5. Confirm scope out loud, then run `/mcp` and `/permissions` **for the user** so they can
-   visually see exactly what their agent can reach. Remind them no real passwords were written
-   to any committed file.
+5. Confirm scope out loud, then **ask the user to type `/mcp` and `/permissions`** so they can
+   see exactly what their agent can reach. (These are built-in commands only the user can run.)
+   Remind them no real passwords were written to any committed file.
 
 ## Non-negotiable defaults (bake these in unless the user explicitly overrides)
 
@@ -47,14 +47,22 @@ and brief. Choose sensible defaults and explain them in one line. Never lecture.
 ## Important mechanics (so the scaffold actually works)
 
 - **`.mcp.json` lives at the repo root**, not inside `.claude/`. Shape: `{"mcpServers": {…}}`.
-  Real tokens never go in it — reference `${VAR}` and add the name to `.env.example`.
+  Real tokens never go in it — reference `${VAR}` and add the name to `env.example`. For a
+  remote (`"type": "http"`) server the token goes in `headers` (e.g.
+  `"Authorization": "Bearer ${VAR}"`); `env` is only for local (stdio) servers. Remove any
+  `_comment` / `_note` keys from the template before merging.
+- **Claude Code does not read `.env` on its own.** If any connector uses a `${VAR}` token, tell
+  the user to load `.env` before starting Claude Code — walk them through "Using a connector that
+  needs a token" in `README.md`.
 - **Do NOT hand-write MCP allow/ask permission rules into `settings.json`.** The exact rule
   format is version-sensitive and easy to get subtly wrong. Instead, rely on the shipped
   default (anything not explicitly allowed prompts the user), and if the user wants a specific
-  connector gated, set it through the live `/permissions` UI, which writes the correct format
-  for their installed version. The `settings.snippet.json.tmpl` is only for adding `deny` rules
-  (the "never do" list) — those are stable.
-- **Verify each connector exists** with `/mcp` before telling the user it's wired up. If a named
+  connector gated, ask the user to set it through the live `/permissions` UI, which writes the
+  correct format for their installed version. The `settings.snippet.json.tmpl` is only for
+  adding `deny` rules (the "never do" list) — those are stable.
+- **Verify each connector exists** by running `claude mcp list` (it shows each server as
+  Connected, Needs authentication, or Failed, and warns about missing `${VAR}` values) before
+  telling the user it's wired up. If a named
   app has no available connector (e.g. Monday.com, Crelate), say so plainly and offer the
   fallbacks in `docs/02-connectors-catalog.md` (a browser-driven path, or a thin API wrapper) —
   the step-by-step for each path is in `docs/06-when-the-connector-doesnt-exist.md`. Don't invent

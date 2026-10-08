@@ -63,7 +63,8 @@ plain English:
 1. **Ask Claude:** "build me a thin **read-only** connector for `<app>`'s API."
 2. **Gather what it needs:** a link to the app's API docs, and an API key from the app's settings.
 3. **Put the key in `.env`** (never committed) — it's referenced by name as `${VAR}`, so the agent
-   uses it to sign in without ever *seeing* it.
+   uses it to sign in without ever *seeing* it. Claude Code doesn't read `.env` on its own: load
+   it before you start Claude Code (see "Using a connector that needs a token" in the README).
 4. **Start read-only.** Any write/send stays approval-gated, exactly like every other connector.
 5. **Verify with `/mcp`** afterward — confirm the new connector shows up before you rely on it.
 

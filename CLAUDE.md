@@ -34,11 +34,14 @@ the human lives in `docs/`.
 
 - Most users are **not developers.** Explain in plain English, choose sensible defaults, and
   ask before doing anything that would surprise them.
-- When you connect an app, confirm it exists first (run `/mcp`) rather than assuming — don't
-  invent a connector that isn't installed.
+- When you connect an app, confirm it exists first rather than assuming — run `claude mcp list`
+  yourself, or ask the user to type `/mcp`. (You can't run built-in slash commands like `/mcp`,
+  `/permissions`, or `/schedule` yourself; ask the user to type them.) Don't invent a connector
+  that isn't installed.
 - Never write real passwords, tokens, or API keys into `.mcp.json`, `CLAUDE.md`, or any file
   that gets committed. Real secrets go in `.env` (which is gitignored). Reference them as
-  `${VAR_NAME}` in `.mcp.json`.
+  `${VAR_NAME}` in `.mcp.json` and list the name in `env.example`. Claude Code doesn't load
+  `.env` by itself — point the user to "Using a connector that needs a token" in `README.md`.
 - This is **not** a WordPress project — WordPress coding standards do not apply. Follow the
   user's global git conventions (feature branch, imperative-present commit messages, show the
   diff before committing).

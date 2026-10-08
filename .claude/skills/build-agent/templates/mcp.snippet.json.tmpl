@@ -1,28 +1,29 @@
 {
-  "_comment_for_claude_only": "NOT a file to copy verbatim. During /build-agent, take only the entries the user actually chose and MERGE them into the mcpServers object of the repo-root .mcp.json. Remote servers MUST include a 'type' (http/sse/ws) alongside 'url'. Never put real tokens here — reference ${VARS} and add the names to .env.example. Verify each server exists with /mcp before promising it works; many are illustrative shapes, not guaranteed-installed servers. Delete this _comment key from the real file.",
+  "_comment_for_claude_only": "NOT a file to copy verbatim. During /build-agent, take only the entries the user actually chose and MERGE them into the mcpServers object of the repo-root .mcp.json. Remote servers MUST include a 'type' (http/sse/ws) alongside 'url', and pass any token in 'headers' — 'env' only works for local (stdio) servers. Never put real tokens here — reference ${VARS} and add the names to env.example; Claude Code does not read .env by itself, so tell the user to load it (README: 'Using a connector that needs a token'). Verify each server with `claude mcp list` before promising it works; many are illustrative shapes, not guaranteed-installed servers. Strip this _comment key AND every _note key before writing the real file.",
 
   "google-drive-example": {
     "type": "http",
     "url": "https://<google-drive-mcp-endpoint>/",
-    "_note": "Google Drive/Sheets/Gmail typically sign in via a browser OAuth pop-up — no token pasted here."
+    "_note": "Google Drive/Sheets/Gmail typically sign in via a browser OAuth pop-up — no token, no headers."
   },
 
   "slack-example": {
     "type": "http",
     "url": "https://<slack-mcp-endpoint>/",
-    "env": { "SLACK_BOT_TOKEN": "${SLACK_BOT_TOKEN}" }
+    "headers": { "Authorization": "Bearer ${SLACK_BOT_TOKEN}" }
   },
 
   "quickbooks-example": {
     "type": "http",
     "url": "https://<quickbooks-mcp-endpoint>/",
     "_note": "FINANCIAL — only include if interview Q9 was an explicit yes; pair with the reviewer subagent.",
-    "env": { "QUICKBOOKS_ACCESS_TOKEN": "${QUICKBOOKS_ACCESS_TOKEN}" }
+    "headers": { "Authorization": "Bearer ${QUICKBOOKS_ACCESS_TOKEN}" }
   },
 
   "local-stdio-example": {
     "command": "npx",
     "args": ["-y", "<some-mcp-server-package>"],
-    "_note": "For a server you run locally (stdio). Use command/args instead of url/type."
+    "env": { "SOME_API_KEY": "${SOME_API_KEY}" },
+    "_note": "For a server you run locally (stdio). Use command/args instead of url/type; tokens go in env."
   }
 }

@@ -50,7 +50,8 @@ numbers, health data — out of the conversation entirely.
 **Why.** The less sensitive data an agent ever sees, the less there is to worry about — for
 privacy, for compliance, and for your own peace of mind. Passwords and keys live in your local
 `.env` (never shared, never committed) and are referenced by name, so the agent uses them to
-sign in without ever *seeing* them.
+sign in without ever *seeing* them. (You load `.env` yourself before starting Claude Code — see
+"Using a connector that needs a token" in the README.)
 
 ---
 
