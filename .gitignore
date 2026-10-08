@@ -8,3 +8,6 @@ secrets/
 
 # macOS clutter
 .DS_Store
+
+# Packages built by /package-agent (rebuild any time; publish them on purpose, not by commit)
+dist/

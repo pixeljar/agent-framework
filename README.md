@@ -36,7 +36,9 @@ A small, safe, reusable Claude agent that:
 3. Answer the questions in plain English. Claude writes your agent's instructions to
    `AGENT.md` and leaves the framework's own files as they are.
 4. Test it (Claude will show you how). Confirm it **drafts and waits for your approval**.
-5. When you're happy, ask Claude to help you **put it on a schedule** (see `docs/05-going-cloud.md`).
+5. When you're happy, ask Claude to help you **put it on a schedule** (see
+   `docs/05-going-cloud.md`), or type **`/package-agent`** to use it in Cowork or the Claude app
+   (see `docs/08`).
 
 That's it. Everything below is optional reading.
 
@@ -92,6 +94,7 @@ docs/                ← short, plain-English reference guides:
   05-going-cloud.md            ← get it off your laptop (schedules & cloud agents)
   06-when-the-connector-doesnt-exist.md ← no connector? browser path, thin wrapper, or a boundary
   07-checking-it-stays-right.md ← is it still right after a change or a model swap?
+  08-packaging-your-agent.md   ← use your agent in Claude Code, Cowork, or the Claude app
 ```
 
 ---
