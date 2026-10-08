@@ -39,18 +39,31 @@ question 5) — that rubric is exactly what a golden example checks against. The
 - **What a good result looks like** — for a concrete case, the exact expected value(s); for a
   judgment case, a known-good example output plus the *must-haves* and *must-never-happens*.
 
-Save each as a small file under `evals/` (create the folder if needed), e.g. `evals/01-close.md`.
+Save each case as its own folder under `evals/` (create it if needed), split in two so the run
+can't peek at the answer:
+
+```
+evals/01-month-end-close/
+  input.md      ← the situation / data / request — everything the agent would work from
+  expected.md   ← Kind: concrete | judgment
+                  Expected value(s)  (concrete)
+                  Known-good output + Must-haves + Must-never-happens  (judgment)
+```
+
 **Keep these PII-free** — redact SSNs, full account numbers, and health data; use a trimmed or
 synthetic example if the real data is sensitive (guardrail 3 still applies here).
 
 ## Step 2 — run the check (any time after)
 
-Re-run the agent on each saved case, **read-only**. Produce the output it *would* have produced —
-but stop at the draft; do not take the outward action. Do this for every case in `evals/`.
+For **each** case folder, start a **fresh `eval-runner` subagent** and tell it which case to run.
+It reads the agent's playbook and `input.md` only, and writes the draft the agent would produce.
+Do not run the cases yourself in this conversation: a fresh run per case means one case's
+answer can't leak into the next, and the runner has read-only tools, so the check can never
+send or change anything.
 
 ## Step 3 — compare and report
 
-For each case, score against its known-good answer:
+Now open each case's `expected.md` and score the runner's output against it:
 
 - **Concrete** → exact-match the value(s). Right or wrong, no interpretation.
 - **Judgment** → side-by-side the new output and the known-good one; list what changed; run the
@@ -62,6 +75,12 @@ Report one line per case, then a verdict:
 - **~ drifted** — changed, but might be fine; show what changed so the user can judge.
 - **✗ worse** — misses a must-have, hits a must-never, or the number is wrong.
 
+**Save the report** to `evals/results/<YYYY-MM-DD>-<model>.md` (e.g.
+`evals/results/2026-10-08-sonnet.md`): the date, the model, what changed since the last check,
+one line per case with its verdict, and the runner's full output for any case that drifted or
+got worse. If an earlier report exists, say which cases changed since then. Saving a report is
+local and harmless, so it needs no approval.
+
 ## Step 4 — the user decides
 
 Present the report and **stop.** The user decides whether to accept the change (or the new model).
@@ -72,12 +91,17 @@ Never auto-accept a change because the eval "mostly passed" — surface the drif
 This is the highest-value moment to run it. Newer/cheaper/faster models appear regularly; before
 you move an agent onto one:
 
-1. Run the golden set on the **current** model — confirm it still passes (your baseline).
-2. Ask the user to switch with `/model` (or change `/effort`) — only the user can run these.
-3. Run the golden set again on the **new** model.
-4. Compare the two reports. Keep the new model **only if it holds up.** See `docs/04-model-and-cost-matrix.md`.
+1. Run the golden set with the `eval-runner` set to the **current** model (the one in the
+   agent's `## Model & cost`) — your baseline. Save that report.
+2. Run it again with the `eval-runner` set to the **new** model (pass the model when you start
+   each subagent — no need for the user to switch their session). Save that report too.
+3. Put the two reports side by side, case by case.
+4. Recommend keeping the new model **only if it holds up**, then stop — the user decides. If they
+   say yes, update `## Model & cost` in the agent's `CLAUDE.md`, and tell them to type `/model`
+   if they also want their own session on it. See `docs/04-model-and-cost-matrix.md`.
 
 ## When it's wrong, save that as a test
 
-Any time the agent gets something wrong in real use, turn that case into a new golden example.
+Any time the agent gets something wrong in real use, turn that case into a new golden example
+(a new `evals/<case>/` folder with `input.md` and the corrected `expected.md`).
 That mistake can now never quietly come back — the check will catch it next time.

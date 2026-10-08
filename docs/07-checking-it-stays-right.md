@@ -21,7 +21,9 @@ A handful of known-good examples turns "I *think* it's still fine" into "I *chec
 
 A **golden set** is 2–3 real cases where you already know what a good result looks like. That's
 it. Don't build a giant test suite on day one — a few good examples catch most drift. They live in
-an `evals/` folder next to your agent, one small file each.
+an `evals/` folder next to your agent, one small folder per example: an `input.md` (what the agent
+works from) and an `expected.md` (the right answer). They're kept apart so the check can't peek at
+the answer. `/check-it` sets these up with you.
 
 One rule: **keep them free of sensitive data.** No SSNs, no full account numbers, no health data
 in your examples — redact them or use a trimmed, made-up version. The examples get re-read every
@@ -48,20 +50,27 @@ record. In Claude Code, just run **`/check-it`** — it walks the whole loop: sa
 first time, then re-run and report **✓ still right / ~ drifted / ✗ worse** for each one, and hands
 the decision back to you.
 
+Two things make the check trustworthy. Each example runs **fresh**, in a separate read-only
+helper that sees only the input, so one answer can't leak into the next, and the check
+physically can't send anything. And every report is **saved** in `evals/results/` with its date
+and model, so you can see what changed since last time.
+
 ## Before you swap models
 
 This is the moment evals earn their keep. Before you move an agent onto a new model:
 
-1. Run the golden set on your **current** model — that's your baseline.
-2. Switch with `/model` (or change the effort with `/effort`).
-3. Run the golden set again on the **new** model.
-4. Compare. Keep the new model **only if it holds up.** (Model tiers and prices: doc 04.)
+Just ask: *"check-it: compare Sonnet and Opus on my golden set"* (or whichever two models).
+
+1. `/check-it` runs the golden set on your **current** model — that's your baseline.
+2. It runs the same set again on the **new** model — you don't have to switch anything yourself.
+3. It puts the two saved reports side by side, example by example.
+4. You decide. Keep the new model **only if it holds up.** (Model tiers and prices: doc 04.)
 
 Same idea, smaller: after any edit to the playbook, re-run the set before you trust the change.
 
 ## When it's wrong, save that as a test
 
 The best golden examples come from real mistakes. Any time the agent gets something wrong, save
-that case into `evals/` as a new example with the *right* answer. From then on, the check catches
+that case into `evals/` as a new example folder with the *right* answer. From then on, the check catches
 it — that particular mistake can never quietly come back. Your set gets sharper the more you use
 the agent, exactly where it's been weak.
