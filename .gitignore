@@ -1,7 +1,6 @@
 # Secrets — never commit these
 .env
 .env.*
-!.env.example
 secrets/
 
 # Personal, machine-specific Claude Code settings (not shared with the team)

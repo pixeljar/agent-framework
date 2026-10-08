@@ -18,7 +18,7 @@ The right-hand column is **for you** (Claude), not the user — it's where each 
 | 8 | "What should it NEVER do?" *(menu: touch money / financials · see SSNs or PII · delete anything · post publicly · contact clients directly · other)* | Hard nos → add `deny` rules via `templates/settings.snippet.json.tmpl` + `## What it must NEVER do`. |
 | 9 | "Does it need money / financial access — e.g. QuickBooks?" *(default: No)* | **No** → financial stays off. **Yes** → add the financial connector AND turn on the `reviewer` subagent; write "Financial access ON — trust but verify" into `## Guardrails`. |
 | 10 | "For this job, what matters more — speed and low cost, or the deepest possible judgment?" | Pick a model tier from `docs/04-model-and-cost-matrix.md`; confirm the current model ID/price with `/claude-api`. Note it in `## Model & cost`. |
-| 11 | "When should it run — only when you ask, on a schedule, or when something happens?" | On-request now. Schedule/event → note it in `## Running it` and point to `docs/05-going-cloud.md` (offer to set up a `/schedule` routine). |
+| 11 | "When should it run — only when you ask, on a schedule, or when something happens?" | On-request now. Schedule/event → note it in `## Running it` and point to `docs/05-going-cloud.md` (offer to walk them through typing `/schedule` to set up a routine — only the user can run it). |
 | 12 | "Who reviews its output before it counts?" | Name the human sign-off → `## Human reviewer`. Offer the read-only `reviewer` subagent as a machine pre-check. |
 
 ## Notes for specific answers
