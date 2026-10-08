@@ -16,13 +16,13 @@
 
 {{STEP_BY_STEP}}
 
-## Connectors it uses              <!-- Q3 / Q4 -->
+## Connectors it uses              <!-- Q3 -->
 
 | App | Read or write? | Approval-gated? |
 |-----|----------------|-----------------|
 | {{APP}} | {{read/write}} | {{yes for any write/send}} |
 
-## Guardrails (always on)          <!-- Q5 / Q7 / Q9 — keep these; they travel with the agent -->
+## Guardrails (always on)          <!-- Q3 financial follow-up / Q7 — keep these; they travel with the agent -->
 
 - **Draft, never send.** Do not send, post, change, or delete anything without my explicit
   "approve." Show me the full draft and stop.
@@ -34,33 +34,33 @@
 - **When I'm not here (scheduled runs), save drafts — never send.** Leave the draft where I'll
   see it ({{DRAFT_DESTINATION}}) and tell me where it is. The send/post/delete actions are
   blocked in `.claude/settings.json`.
-  <!-- Keep this bullet only if Q11 was a schedule or event. Otherwise delete it. -->
+  <!-- Keep this bullet only if Q7 was a schedule or event. Otherwise delete it. -->
 - **Financial access: {{ON/OFF}}.**
   <!-- If OFF: "No financial systems." If ON: "Trust but verify — the read-only reviewer subagent
        checks every number before I approve." -->
 
-## What it must NEVER do           <!-- Q8 -->
+## What it must NEVER do           <!-- Q6 -->
 
 - {{HARD_NO}}
 
-## Output                          <!-- Q5 -->
+## Output                          <!-- Q4 -->
 
 {{WHAT_IT_HANDS_BACK}} — delivered to {{TO_WHOM}} as a {{draft/file/summary/shortlist}}.
 
-## What "good" looks like          <!-- Q6 — the rubric; feeds the golden set in the check-it skill -->
+## What "good" looks like          <!-- Q5 — the rubric; feeds the golden set in the check-it skill -->
 
 {{WHAT_MAKES_A_RESULT_GOOD}} — and a result is **wrong** if {{WHAT_MAKES_IT_WRONG}}.
 
-## Model & cost                    <!-- Q10 — confirm current ID/price with /claude-api -->
+## Model & cost                    <!-- chosen by Claude (interview.md); confirm ID with /claude-api -->
 
 Uses the **{{TIER}}** tier ({{MODEL_ID}}) because {{WHY}}. Rough spend expectation: {{NOTE}}.
 
-## Running it                      <!-- Q11 -->
+## Running it                      <!-- Q7 -->
 
 {{ON_REQUEST_NOW}}. To run it on a schedule or when something happens, see `docs/05-going-cloud.md`.
 On a schedule, it saves its output to {{DRAFT_DESTINATION}} for me to review and send myself.
-<!-- Delete the line above if Q11 was "only when I ask." -->
+<!-- Delete the line above if Q7 was "only when I ask." -->
 
-## Human reviewer                  <!-- Q12 -->
+## Human reviewer                  <!-- Q8 -->
 
 {{PERSON}} reviews the output before it counts.
