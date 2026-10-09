@@ -38,7 +38,20 @@ most 64 characters, lowercase letters, digits, and hyphens only). Collect:
 - **Guardrails:** all of `.claude/guardrails.md`, plus the `draft-and-approve` skill.
 - **Playbook skill:** any `.claude/skills/<job>/` that `AGENT.md` points to (never a framework
   skill such as `build-agent` or `check-it`).
-- **Connectors:** the agent's entries in `.mcp.json` (they contain `${VAR}` names only).
+- **Connectors:** the agent's entries in `.mcp.json` (they contain `${VAR}` names only), and
+  the apps its connector table says come from the **Claude account** (e.g. Gmail connected in
+  claude.ai). Account connectors can't be bundled — each person turns them on in their own
+  account — so list them for the package README's "Connectors to turn on" section.
+- **State:** if `AGENT.md` keeps anything in `state/` (a bookmark, a last-run time), that file
+  stays on this computer and won't exist where the package is installed — and an app skill
+  can't read or write files at all. Tell the user, and suggest keeping that memory in the app
+  the agent already uses instead (e.g. finding its own last draft), before packaging.
+- **Personal details:** search `AGENT.md` and the playbook skill for things that belong to one
+  person — email addresses, names, phone numbers, company or client names, file paths. For
+  each one, ask: *"This package will say `<detail>`. Keep it (just for you), or make it
+  general so it works for whoever installs it?"* General means rewriting it in the package
+  only — never in `AGENT.md` — e.g. "addressed to the user's own email address (ask them the
+  first time if you can't tell)".
 - **Blocked actions:** every `deny` rule in `.claude/settings.json` that names a connector
   action (`mcp__<server>__<action>`). Keep just the `<action>` part of each (`send_message`).
 - **Reviewer:** `.claude/agents/reviewer.md`, if financial access is on or `AGENT.md` mentions
@@ -117,7 +130,9 @@ dist/<package-name>/app-skill/
   starting with when to use it ("Use when I ask for my weekly waiting-on digest…").
 - **Body:** the full guardrails, then `AGENT.md`, then the `draft-and-approve` handshake
   written out inline (the app won't have the framework's other skills), then a
-  **"Connectors to turn on"** list naming each app from the connector table.
+  **"Connectors to turn on"** list naming each app from the connector table (account
+  connectors and `.mcp.json` ones alike — in the app, all of them are switched on in Claude's
+  settings).
 - **No subagents in the app:** if financial access is on, replace "route every number through
   the read-only reviewer subagent" with "before asking for approval, re-check every number
   against its source and show the working; the human signs off."
@@ -137,7 +152,9 @@ here"** table: for each guardrail, is it **enforced** (a hook or the app blocks 
   `/plugin marketplace add …`, `/plugin install …`). In Cowork: Customize → Plugins → Add
   marketplace, with the GitHub repo.
   Send actions and `.env` reads are **enforced** by hooks; other guardrails are instructions.
-  Any `${VAR}` tokens must be loaded the same way as here (README of this framework).
+  Any `${VAR}` tokens must be loaded the same way as here (README of this framework). List
+  any **Claude-account connectors** under "Connectors to turn on": each person connects them
+  in their own Claude account.
 - **App skill:** upload the zip in the Claude app, then turn it on under **Customize → Skills**,
   and turn on each connector in the list. Nothing is enforced by hooks in the app: the
   guardrails are instructions, backed by the app's own confirmations. Say this plainly.
@@ -154,7 +171,9 @@ here"** table: for each guardrail, is it **enforced** (a hook or the app blocks 
    `dist/<package-name>/plugin/.claude-plugin/plugin.json` (checks the plugin itself).
 4. **Limits:** the app skill's `name` ≤ 64 characters, `description` ≤ 200, and its frontmatter
    has no keys besides `name` and `description`.
-5. **Show the user** what was built (one line per file) and the "What's different here" table.
+5. **Personal details:** every detail the user chose to make general (Step 2) is general in
+   the package, and `AGENT.md` itself is unchanged.
+6. **Show the user** what was built (one line per file) and the "What's different here" table.
 
 Then stop. Publishing is outward: if the user wants to put the plugin on GitHub or upload the
 skill, show them the steps from the package `README.md` — or, if they ask you to push it for

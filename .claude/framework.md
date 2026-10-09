@@ -19,7 +19,8 @@ The framework and the agent live side by side in this folder, in separate files:
   subagents, `README.md`, and `docs/`. They change only when the user explicitly asks to
   change the framework itself.
 - **Agent-owned — written by `/build-agent`:** `AGENT.md` (the agent's job and playbook), an
-  optional `.claude/skills/<job>/` playbook skill, `evals/` (written by `/check-it`), and
+  optional `.claude/skills/<job>/` playbook skill, `state/` (anything the agent saves between
+  runs on this computer; gitignored), `evals/` (written by `/check-it`),
   `archive/` (earlier agents set aside by a replace — not loaded, kept so a replace can be
   undone), and `dist/` (packages built by `/package-agent`; gitignored).
 - **Shared config — `/build-agent` adds entries** (and, when replacing an agent, removes only

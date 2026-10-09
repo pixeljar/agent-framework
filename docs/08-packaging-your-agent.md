@@ -28,7 +28,9 @@ publishes or uploads anything: you decide where the package goes.
 | Blocked send/post/delete actions | ✅ **enforced** (a safety hook) | ⚠️ instructions only — the app's own confirmations still apply |
 | `.env` files kept out of reach | ✅ **enforced** (a safety hook) | n/a — the app can't see your files |
 | The read-only reviewer (financial "trust but verify") | ✅ | ⚠️ the agent re-checks numbers itself; you still sign off |
-| Your apps (connectors) | ✅ the list comes along; you sign in once | ⚠️ you turn each one on in the Claude app |
+| Your apps (connectors) | ✅ ones set up in this folder come along; apps connected to your Claude account (like Gmail) are listed for each person to connect | ⚠️ you turn each one on in the Claude app |
+| Anything it remembers between runs on this computer (a `state/` file) | ❌ stays here — `/package-agent` suggests keeping it in the app instead | ❌ the app can't read or write files |
+| Personal details (your email address, name, clients) | ⚠️ you choose: keep them, or make them general so it works for anyone | ⚠️ same choice |
 | Passwords and tokens | ❌ **never** — only their names | ❌ **never** |
 
 ## Installing a plugin
