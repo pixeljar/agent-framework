@@ -11,3 +11,6 @@ secrets/
 
 # Packages built by /package-agent (rebuild any time; publish them on purpose, not by commit)
 dist/
+
+# An agent's per-computer memory between runs (bookmarks, last-run times)
+state/

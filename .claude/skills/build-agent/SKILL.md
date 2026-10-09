@@ -28,6 +28,18 @@ and brief. Choose sensible defaults and explain them in one line. Never lecture.
      before you scaffold.
      Separate copy → tell them to copy the folder, open Claude Code in the copy, and run
      `/build-agent` there. One agent per folder keeps each agent's apps and rules separate.
+
+   **Then check for git** (`git status`). Many users get this folder as a ZIP, with no git.
+   - **Git is there** → use it for the checks in step 5.
+   - **No git** → offer, in one line: *"Want me to save a starting point first? It gives you an
+     undo button if you ever want to go back to before this build."* If yes (and git is
+     installed), run `git init`, then `git add -A` and `git commit -m "Start from agent-framework
+     template"` (if git says it doesn't know who the user is, ask for a name and email and set
+     them for this folder only with `git config user.name` / `git config user.email`). If no,
+     or git isn't installed, that's fine: **take a fingerprint** of the
+     framework-owned files instead (listed in `.claude/framework.md`) — `shasum -a 256 <files>`
+     on a Mac, `sha256sum <files>` on Linux, `Get-FileHash <files>` in PowerShell — and keep the
+     output for step 5. Don't write it to a file.
 1. **Read `interview.md`** (next to this file). It has the exact ordered questions and the
    answer → file mapping. Follow it — don't improvise a different set of questions.
 2. Ask questions **one or two at a time**, offering multiple-choice options wherever you can so
@@ -41,7 +53,15 @@ and brief. Choose sensible defaults and explain them in one line. Never lecture.
    - **Never touch the framework-owned files** listed in `.claude/framework.md`: `CLAUDE.md`,
      `.claude/framework.md`, `.claude/guardrails.md`, the framework skills and subagents,
      `README.md`, and `docs/`. Never copy guardrail text into `AGENT.md`.
-   - `templates/mcp.snippet.json.tmpl` → merge chosen connectors into the repo-root `.mcp.json`.
+   - `templates/mcp.snippet.json.tmpl` → merge chosen connectors into the repo-root `.mcp.json`
+     — **only** for apps that come from `.mcp.json`. Apps the user has already connected to
+     their Claude account (they show up in your tool list as `mcp__claude_ai_<App>__…`) need no
+     entry; record them in the connector table as "Claude account".
+   - **If the agent needs to remember things between runs** (a bookmark, a last-run time), prefer
+     keeping that in the app it already uses (e.g. the subject of its last draft) — that works
+     everywhere. If it must be a file, put it under `state/` (agent-owned, gitignored), and say
+     in `AGENT.md` that it lives only on this computer, so it won't travel to a cloud schedule
+     or a package.
    - `templates/settings.snippet.json.tmpl` → merge any extra deny rules into
      `.claude/settings.json`.
 5. **Check your own work** before telling the user it's done. Fix anything you find, then
@@ -52,17 +72,26 @@ and brief. Choose sensible defaults and explain them in one line. Never lecture.
    - **Nothing from the templates is left over.** Search the files you wrote for `{{`, `_comment`,
      `_note`, and `<!--` guidance comments, and remove them. (The connector table, the guardrails,
      and the never list must all be filled in, not placeholders.)
-   - **The framework is untouched.** `git status` shows changes only to agent-owned files
-     (`AGENT.md`, `.claude/skills/<job>/`, `archive/` after a replace) and the shared config
-     (`.mcp.json`, `.claude/settings.json`, `env.example`). If any framework-owned file
-     changed, undo that change before going on.
-   - **The pieces agree.** Every app in the `## Connectors it uses` table is in `.mcp.json`, or is
-     marked as the browser path / thin wrapper. Every `${VAR}` in `.mcp.json` is listed in
-     `env.example`. No real token appears in any committed file.
+   - **The framework is untouched.** Only agent-owned files (`AGENT.md`,
+     `.claude/skills/<job>/`, `state/`, `archive/` after a replace) and the shared config
+     (`.mcp.json`, `.claude/settings.json`, `env.example`) changed. With git, check
+     `git status`. Without git, run the same fingerprint command as in step 0 and compare: every
+     framework file's fingerprint must match. If any framework-owned file changed, undo that
+     change before going on.
+   - **The pieces agree.** Every app in the `## Connectors it uses` table marked as coming from
+     `.mcp.json` has an entry there; apps marked "Claude account", "browser path", or "thin
+     wrapper" don't need one. Every `${VAR}` in `.mcp.json` is listed in `env.example`. No real
+     token appears in any committed file.
+   - **It runs on any computer.** Search `AGENT.md` and any playbook skill for commands or paths
+     that only work on one system — e.g. `date -v`, `sed -i ''`, `pbcopy`, `open `, `/Users/`,
+     `C:\`, PowerShell-only commands. Prefer instructions Claude carries out itself ("work out
+     the time 24 hours ago") over shell commands. If a command really is needed, give the Mac,
+     Linux, and Windows versions.
    - **The connectors respond.** Run `claude mcp list` and note any that show Needs
      authentication or Failed. Those are for the user to sign in to, not a reason to stop.
-   - **Show the changes.** Run `git status` and `git diff` and summarize what changed in plain
-     English, one line per file.
+   - **Show the changes.** Summarize what changed in plain English, one line per file — from
+     `git status` / `git diff` if there's git, otherwise from your own list of the files you
+     wrote.
 6. Confirm scope out loud, then **ask the user to type `/mcp` and `/permissions`** so they can
    see exactly what their agent can reach. (These are built-in commands only the user can run.)
    Remind them no real passwords were written to any committed file.
@@ -82,7 +111,8 @@ moved into `archive/`, so a replace can always be undone.
    - **Token names:** the `${VAR}` names used only by connectors being removed → their lines in
      `env.example`.
    - **Its own files:** `AGENT.md`, any playbook skill it points to under `.claude/skills/<job>/`
-     (never one of the framework's skills), and `evals/` (its golden set fits the old job).
+     (never one of the framework's skills), `evals/` (its golden set fits the old job), and
+     `state/` (its saved bookmarks).
    - **Things outside this folder:** a schedule (if its `## Running it` says so) and real tokens
      in `.env`. You can't change these; the user does.
 2. **Show the cleanup as a draft** and get an explicit "approve" (the `draft-and-approve`
@@ -94,8 +124,9 @@ moved into `archive/`, so a replace can always be undone.
    > need to do two things yourself: <delete the schedule by typing `/schedule`> and <remove the
    > old tokens from `.env`>. Reply **approve** to go ahead."
 3. **Archive, don't delete.** Create `archive/<old-name>-<YYYY-MM-DD>/` and move the old files
-   into it with `git mv` (or `mv` if a file isn't tracked): `AGENT.md`, the skill folder, and
-   `evals/`. Never use `rm`. Files under `archive/` aren't loaded, so they can't affect the new
+   into it: `AGENT.md`, the skill folder, `evals/`, and `state/`. Use `git mv` for files git
+   tracks; otherwise (or with no git at all) a plain move — `mv` on Mac/Linux, `Move-Item` in
+   PowerShell. Never use `rm`. Files under `archive/` aren't loaded, so they can't affect the new
    agent.
 4. **Remove the config entries** from `.mcp.json`, `.claude/settings.json`, and `env.example`.
    Before removing them, write them all into `archive/<old-name>-<date>/removed-config.md`

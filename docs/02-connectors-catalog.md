@@ -7,6 +7,9 @@ is called **MCP** — you don't need to know the acronym to use it).
 Three ways to connect, from easiest to most involved:
 
 1. **A ready-made connector** — you sign in through a pop-up; Claude can then read/act in that app.
+   Apps you've already connected to your **Claude account** (for example Gmail, added at
+   claude.ai) work here automatically, with nothing to set up in this folder. `/build-agent`
+   checks for those first. Other connectors get an entry in this folder's `.mcp.json`.
 2. **A browser path** — Claude drives a logged-in browser tab (for apps with no connector, or
    that block automation). LinkedIn Recruiter is the classic case.
 3. **A thin wrapper** — for an app with an API but no ready-made connector, a small custom
